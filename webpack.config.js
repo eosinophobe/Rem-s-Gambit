@@ -6,14 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const { ProvidePlugin, BannerPlugin } = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const CopyPlugin = require('copy-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
-const isDevelopment = !isProd;
-
-const fastRefresh = isDevelopment ? new ReactRefreshWebpackPlugin() : null;
 
 const SANDBOX_SUFFIX = '-sandbox';
 
@@ -52,7 +48,7 @@ const config = {
       {
         test: /\.css$/i,
         use: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { url: false } },
           'postcss-loader',
         ],
@@ -60,11 +56,9 @@ const config = {
     ],
   },
   plugins: [
-    isDevelopment
-      ? undefined
-      : new MiniCssExtractPlugin({
-          filename: '[name].css',
-        }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     new HtmlWebpackPlugin({
       templateContent: `
       <body></body>
@@ -73,6 +67,11 @@ const config = {
       const queryParams = Object.fromEntries(urlSearchParams.entries());
       const widgetName = queryParams["widgetName"];
       if (widgetName == undefined) {document.body.innerHTML+="Widget ID not specified."}
+
+      const l = document.createElement('link');
+      l.rel = "stylesheet";
+      l.href = widgetName+"${SANDBOX_SUFFIX}.css";
+      document.head.appendChild(l);
 
       const s = document.createElement('script');
       s.type = "module";
@@ -99,7 +98,6 @@ const config = {
         { from: 'README.md', to: '' },
       ],
     }),
-    fastRefresh,
   ].filter(Boolean),
 };
 
@@ -112,8 +110,10 @@ if (isProd) {
   // for more information, see https://webpack.js.org/configuration/dev-server
   config.devServer = {
     port: 8080,
-    open: true,
-    hot: true,
+    client: false,
+    hot: false,
+    liveReload: false,
+    open: false,
     compress: true,
     watchFiles: ['src/*'],
     headers: {

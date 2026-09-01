@@ -32,9 +32,6 @@ body,
   line-height: inherit; /* 2 */
 }
 
-/**
-*/
-
 body,
 :host {
   margin: 0;

@@ -1,22 +1,21 @@
 {
+  "author": "Elia Scherz",
+  "name": "Rem's Gambit",
+  "description": "Practice chess openings on an interactive chessboard",
+  "enableOnMobile": true,
+  "id": "EliaScherz-mbq9b8v",
   "manifestVersion": 1,
-  "id": "plugin_template",
-  "name": "Plugin Template",
-  "author": "remnote",
-  "repoUrl": "",
+  "repoUrl": "https://github.com/eosinophobe/Rem-s-Gambit.git",
   "version": {
     "major": 0,
     "minor": 0,
     "patch": 1
   },
-  "theme": [],
-  "enableOnMobile": false,
-  "description": "",
   "requestNative": false,
   "requiredScopes": [
     {
       "type": "All",
-      "level": "Read"
+      "level": "ReadCreateModify"
     }
   ]
 }
