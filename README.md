@@ -1,4 +1,3 @@
-# Rem's Gambit
 # Practice chess openings
 
 ## How to use
