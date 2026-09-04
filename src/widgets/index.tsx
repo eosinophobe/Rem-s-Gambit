@@ -34,6 +34,26 @@ const chessQueueCSS = `
 
 .rn-queue:has(${chessQueueWidgetSelector}) ${chessQueueWidgetSelector} {
   display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+}
+
+.rn-queue:has(${chessQueueWidgetSelector}) rn-plugin-root,
+.rn-queue:has(${chessQueueWidgetSelector}) .rn-plugin-root {
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+}
+
+.rn-queue:has(${chessQueueWidgetSelector}) ${chessQueueWidgetSelector} {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100vh !important;
 }
 `;
 
